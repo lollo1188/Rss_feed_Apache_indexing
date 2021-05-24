@@ -1,4 +1,4 @@
-# Rss-feed-Apache-indexing
+# Rss feed Apache indexing
 
 Hey everybody!
 This project is just a simple Rss feed generator for Apache indexed web server.
