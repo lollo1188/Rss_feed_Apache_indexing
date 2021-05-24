@@ -10,4 +10,9 @@ For the best reproducibility, it is better you are:
 - NOT using a self signed SSK/TLS certificate for your web server
 
 
-As said above, it is just a little thing I have created for personal use, but I think it could be useful for anyone else.
+As said above, it is just a simple and easy php script I have created for personal use, but I think it could be useful for anyone else.
+
+Once generated the xml containing the RSS feed, you can pass its URL to a RSS feed reader (e.g. InoReader or Feeder) and there you are!
+
+
+Credits for initial insights on this to https://gist.github.com/vsoch/4898025919365bf23b6f.
