@@ -1,8 +1,12 @@
 <!--Assuming your web server is 
 - 1) using apache 2.4 with default indexing for files and sub-directories (I've tested it on Raspberry Pi 3 with Raspbian on it), 
 - 2) NOT using a self-signed SSL/TLS certificate for your web server
+- 3) Owned by you (sudo permissions required)
+
 you can create a file for rss feed in XML (e.g. rss.xml) thanks to this very basic php file.
-It will contain as many files and subdirectories as you want, which are contained in your web directory.
+Put this file in the root web server directory (or in any other subdirectory), 
+in order to list through RSS as many files and sub-directories you want
+
 -->
 
 <?php
@@ -33,9 +37,7 @@ function find_all_files($dir){
     global $files;
 
     foreach($root as $value){
-        //echo $dir/$value;
         if($value === '.' || $value === '..' || $value === "rss.php" || $value === "rss.xml"){ //put in here as many files as you want to exclude from rss feed indexing
-                //echo "$dir/$value";
                 continue;
         }
         if(is_file("$dir/$value")) {
@@ -45,9 +47,7 @@ function find_all_files($dir){
         }
 
         foreach(find_all_files("$dir/$value") as $value){
-                //$value = str_replace('&', '&amp;', $value);
                 $prova = basename(dirname("$value"),"/");
-                //echo $prova;
                 $prova2 = rawurlencode($prova)."/".basename($value);
                 $item['name'] = $prova2;
 
@@ -78,26 +78,19 @@ foreach($files as $item) {
           if (!empty($item['name'])) {
 
                 $result .= "<item>\n";
-                //echo $result;
 
                 $result .= "<title>".$item['name']."</title>\n";
-                //echo $result;
 
                 $ret = '"';
                 $result .= "<link href=". $ret . $feedBaseURL . $item['name'] .$ret. "/>\n";
-                //echo $result;
 
                 $result .= "<guid>". $feedBaseURL . $item['name'] . "</guid>\n";
-                //echo $result;
 
                 $result .= "<pubDate>". date('r', $item['timestamp']) ."</pubDate>\n";
-                //echo $result;
 
                 $result .= "<description><![CDATA[And here's the description of the entry.]]></description>\n";
-                //echo $result;
 
                 $result .= "</item>\n";
-                //echo $result;
           }
         }
 }
